@@ -1,6 +1,6 @@
 namespace XRMiniLink.Data;
 
-public enum InternalCommandType
+public enum InternalCommand
 {
     SwitchLayer,
     RefreshLayer,

@@ -1,6 +1,7 @@
 namespace XRMiniLink.Data;
 
-public class XInternalXommand
+public class XInternalCommand
 {
-    
+    public InternalCommand Command { get; set; }
+    public string? Parameters { get; set; }
 }
