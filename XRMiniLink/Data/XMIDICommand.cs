@@ -4,7 +4,7 @@ namespace XRMiniLink.Data;
 
 public class XMIDICommand
 {
-    public string MidiNote { get; set; }
+    public int MIDINote { get; set; }
     public MidiEventType MidiType { get; set; }
     public int Value { get; set; }
 }

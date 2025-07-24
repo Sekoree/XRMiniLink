@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:LinkLayerEditor.Models">
+
+    <!-- Add Resources Here -->
+    <DataTemplate x:Key="XLEDRingTemplate"
+                  DataType="models:XLEDRingModel">
+        <Expander HorizontalAlignment="Stretch"
+                  IsExpanded="False"
+                  Header="{Binding MidiNote, StringFormat='LEDRing: Note {0}'}">
+
+            <Grid ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="XLEDRingNote"
+                       Content="MIDI Note:" />
+
+                <ComboBox Grid.Column="1" Grid.Row="0"
+                          Margin="2.5"
+                          Width="250"
+                          x:Name="XLEDRingNote"
+                          ItemsSource="{Binding AvailableMidiNotes}"
+                          SelectedItem="{Binding MidiNote}" />
+
+                <WrapPanel Grid.Column="0" Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Margin="2.5"
+                           Orientation="Horizontal"
+                           ItemSpacing="5">
+                    <CheckBox Content="Has OSC Command?"
+                              IsChecked="{Binding HasOscCommand}" />
+                    <CheckBox Content="Has Internal Command?"
+                              IsChecked="{Binding HasInternalCommand}" />
+                    <CheckBox Content="Has MIDI Command?"
+                              IsChecked="{Binding HasMidiCommand}" />
+                </WrapPanel>
+
+                <ContentControl Grid.Column="0" Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                Margin="2.5"
+                                IsVisible="{Binding HasOscCommand}"
+                                Content="{Binding OscCommand}"
+                                ContentTemplate="{StaticResource XOSCCommandTemplate}" />
+
+                <ContentControl Grid.Column="0" Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                Margin="2.5"
+                                IsVisible="{Binding HasInternalCommand}"
+                                Content="{Binding InternalCommand}"
+                                ContentTemplate="{StaticResource XInternalCommandTemplate}" />
+
+                <ContentControl Grid.Column="0" Grid.Row="4"
+                                Grid.ColumnSpan="2"
+                                Margin="2.5"
+                                IsVisible="{Binding HasMidiCommand}"
+                                Content="{Binding MidiCommand}"
+                                ContentTemplate="{StaticResource XMIDICommandTemplate}" />
+
+            </Grid>
+
+        </Expander>
+    </DataTemplate>
+</ResourceDictionary>

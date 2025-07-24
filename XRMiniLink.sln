@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRMiniLink", "XRMiniLink\XR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkTest", "LinkTest\LinkTest.csproj", "{6DBED981-CD69-4465-BF6B-7F996ABA9F3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkLayerEditor", "LinkLayerEditor\LinkLayerEditor.csproj", "{3F9D235B-5474-4C3A-AFDF-EE3144F660D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{6DBED981-CD69-4465-BF6B-7F996ABA9F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DBED981-CD69-4465-BF6B-7F996ABA9F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DBED981-CD69-4465-BF6B-7F996ABA9F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F9D235B-5474-4C3A-AFDF-EE3144F660D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F9D235B-5474-4C3A-AFDF-EE3144F660D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F9D235B-5474-4C3A-AFDF-EE3144F660D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F9D235B-5474-4C3A-AFDF-EE3144F660D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

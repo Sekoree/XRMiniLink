@@ -12,13 +12,28 @@ public static class TestLayer
         {
             Name = "Test Layer",
             IsDefault = true,
+            Fader = new XFader()
+            {
+                MIDINote = 8, //channel 8?
+                ValueMin = 0,
+                ValueMax = 16256,
+                OSCCommands = [
+                    new XOSCCommand()
+                    {
+                        Command = "/headamp/000/gain",
+                        OSCType = OscToken.Float,
+                        Min = 0.0f,
+                        Max = 1.0f,
+                    }
+                ]
+            },
             Bands =
             [
                 new XBand()
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "16",
+                        MIDINote = 16,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -33,7 +48,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "48",
+                        MIDINote = 48,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/01/mix/fader",
@@ -44,7 +59,7 @@ public static class TestLayer
                     },
                     TopButton = new XButton()
                     {
-                        MidiNote = "89",
+                        MIDINote = 89,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -59,7 +74,7 @@ public static class TestLayer
                     },
                     TopButtonLED = new XButtonLED()
                     {
-                        MidiNote = "89",
+                        MIDINote = 89,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/-stat/solosw/01",
@@ -71,7 +86,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "87",
+                        MIDINote = 87,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -86,7 +101,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "87",
+                        MIDINote = 87,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/01/mix/on",
@@ -101,7 +116,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "17",
+                        MIDINote = 17,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -116,7 +131,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "49",
+                        MIDINote = 49,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/02/mix/fader",
@@ -127,7 +142,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "88",
+                        MIDINote = 88,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -142,7 +157,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "88",
+                        MIDINote = 88,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/02/mix/on",
@@ -157,7 +172,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "18",
+                        MIDINote = 18,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -172,7 +187,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "50",
+                        MIDINote = 50,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/03/mix/fader",
@@ -183,7 +198,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "91",
+                        MIDINote = 91,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -198,7 +213,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "91",
+                        MIDINote = 91,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/03/mix/on",
@@ -213,7 +228,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "19",
+                        MIDINote = 19,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -228,7 +243,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "51",
+                        MIDINote = 51,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/04/mix/fader",
@@ -239,7 +254,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "92",
+                        MIDINote = 92,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -254,7 +269,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "92",
+                        MIDINote = 92,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/04/mix/on",
@@ -269,7 +284,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "20",
+                        MIDINote = 20,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -284,7 +299,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "52",
+                        MIDINote = 52,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/05/mix/fader",
@@ -295,7 +310,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "86",
+                        MIDINote = 86,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -310,7 +325,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "86",
+                        MIDINote = 86,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/05/mix/on",
@@ -325,7 +340,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "21",
+                        MIDINote = 21,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -340,7 +355,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "53",
+                        MIDINote = 53,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/06/mix/fader",
@@ -351,7 +366,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "93",
+                        MIDINote = 93,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -366,7 +381,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "93",
+                        MIDINote = 93,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/06/mix/on",
@@ -381,7 +396,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "22",
+                        MIDINote = 22,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -396,7 +411,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "54",
+                        MIDINote = 54,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/07/mix/fader",
@@ -407,7 +422,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "94",
+                        MIDINote = 94,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -422,7 +437,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "94",
+                        MIDINote = 94,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/07/mix/on",
@@ -437,7 +452,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "23",
+                        MIDINote = 23,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -452,7 +467,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "55",
+                        MIDINote = 55,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/08/mix/fader",
@@ -463,7 +478,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "95",
+                        MIDINote = 95,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -478,7 +493,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "95",
+                        MIDINote = 95,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/08/mix/on",
@@ -492,7 +507,7 @@ public static class TestLayer
             ],
             ButtonDown = new XButton()
             {
-                MidiNote = "84",
+                MIDINote = 84,
                 InternalCommands =
                 [
                     new XInternalCommand()
@@ -511,7 +526,7 @@ public static class TestLayer
                 //    Value = 127
                 //}
             ],
-            UnInitializeMIDICommands =
+            UnInitMIDICommands =
             [
                 //new XMIDICommand()
                 //{
@@ -535,7 +550,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "16",
+                        MIDINote = 16,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -550,7 +565,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "48",
+                        MIDINote = 48,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/09/mix/fader",
@@ -561,7 +576,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "87",
+                        MIDINote = 87,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -576,7 +591,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "87",
+                        MIDINote = 87,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/09/mix/on",
@@ -591,7 +606,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "17",
+                        MIDINote = 17,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -606,7 +621,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "49",
+                        MIDINote = 49,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/10/mix/fader",
@@ -617,7 +632,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "88",
+                        MIDINote = 88,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -632,7 +647,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "88",
+                        MIDINote = 88,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/10/mix/on",
@@ -647,7 +662,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "18",
+                        MIDINote = 18,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -662,7 +677,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "50",
+                        MIDINote = 50,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/11/mix/fader",
@@ -674,7 +689,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "91",
+                        MIDINote = 91,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -689,7 +704,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "91",
+                        MIDINote = 91,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/11/mix/on",
@@ -704,7 +719,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "19",
+                        MIDINote = 19,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -719,7 +734,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "51",
+                        MIDINote = 51,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/12/mix/fader",
@@ -730,7 +745,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "92",
+                        MIDINote = 92,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -745,7 +760,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "92",
+                        MIDINote = 92,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/12/mix/on",
@@ -760,7 +775,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "20",
+                        MIDINote = 20,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -775,7 +790,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "52",
+                        MIDINote = 52,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/13/mix/fader",
@@ -786,7 +801,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "86",
+                        MIDINote = 86,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -801,7 +816,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "86",
+                        MIDINote = 86,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/13/mix/on",
@@ -816,7 +831,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "21",
+                        MIDINote = 21,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -831,7 +846,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "53",
+                        MIDINote = 53,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/14/mix/fader",
@@ -842,7 +857,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "93",
+                        MIDINote = 93,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -857,7 +872,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "93",
+                        MIDINote = 93,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/14/mix/on",
@@ -872,7 +887,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "22",
+                        MIDINote = 22,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -887,7 +902,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "54",
+                        MIDINote = 54,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/15/mix/fader",
@@ -898,7 +913,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "94",
+                        MIDINote = 94,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -913,7 +928,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "94",
+                        MIDINote = 94,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/15/mix/on",
@@ -928,7 +943,7 @@ public static class TestLayer
                 {
                     Encoder = new XEncoder()
                     {
-                        MidiNote = "23",
+                        MIDINote = 23,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -943,7 +958,7 @@ public static class TestLayer
                     },
                     LEDRing = new XLEDRing()
                     {
-                        MidiNote = "55",
+                        MIDINote = 55,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/16/mix/fader",
@@ -954,7 +969,7 @@ public static class TestLayer
                     },
                     BottomButton = new XButton() //mute toggle
                     {
-                        MidiNote = "95",
+                        MIDINote = 95,
                         OSCCommands =
                         [
                             new XOSCCommand()
@@ -969,7 +984,7 @@ public static class TestLayer
                     },
                     BottomButtonLED = new XButtonLED()
                     {
-                        MidiNote = "95",
+                        MIDINote = 95,
                         OSCCommand = new XOSCCommand()
                         {
                             Command = "/ch/16/mix/on",
@@ -983,7 +998,7 @@ public static class TestLayer
             ],
             ButtonDown = new XButton()
             {
-                MidiNote = "84",
+                MIDINote = 84,
                 InternalCommands =
                 [
                     new XInternalCommand()
@@ -997,28 +1012,28 @@ public static class TestLayer
             [
                 new XMIDICommand()
                 {
-                    MidiNote = "89",
+                    MIDINote = 89,
                     MidiType = MidiEventType.NoteOn,
                     Value = 127
                 },
                 new XMIDICommand()
                 {
-                    MidiNote = "90",
+                    MIDINote = 90,
                     MidiType = MidiEventType.NoteOn,
                     Value = 127
                 }
             ],
-            UnInitializeMIDICommands =
+            UnInitMIDICommands =
             [
                 new XMIDICommand()
                 {
-                    MidiNote = "89",
+                    MIDINote = 89,
                     MidiType = MidiEventType.NoteOn,
                     Value = 0
                 },
                 new XMIDICommand()
                 {
-                    MidiNote = "90",
+                    MIDINote = 90,
                     MidiType = MidiEventType.NoteOn,
                     Value = 0
                 }

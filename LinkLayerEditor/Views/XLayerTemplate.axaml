@@ -1,0 +1,222 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:LinkLayerEditor.Models">
+
+    <!-- Add Resources Here -->
+
+    <DataTemplate x:Key="XLayerTemplate"
+                  DataType="models:XLayerModel">
+
+        <Expander HorizontalAlignment="Stretch"
+                  IsExpanded="False">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="5">
+                    <CheckBox IsChecked="{Binding IsSelected}" />
+                    <Label Content="{Binding Name, StringFormat='Layer: {0}'}"
+                           VerticalContentAlignment="Center" />
+                </StackPanel>
+            </Expander.Header>
+
+            <Grid ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       Target="XLayerName"
+                       VerticalAlignment="Center"
+                       Content="Layer Name:" />
+
+                <TextBox Grid.Column="1" Grid.Row="0"
+                         x:Name="XLayerName"
+                         VerticalAlignment="Center"
+                         Text="{Binding Name}" />
+
+                <Expander Grid.Column="0" Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          HorizontalAlignment="Stretch"
+                          IsExpanded="False"
+                          Header="Bands">
+
+                    <ItemsControl ItemsSource="{Binding Bands}"
+                                  ItemTemplate="{StaticResource XBandTemplate}" />
+
+                </Expander>
+
+                <Expander Grid.Column="0" Grid.Row="2"
+                          Grid.ColumnSpan="2"
+                          HorizontalAlignment="Stretch"
+                          IsExpanded="False"
+                          Header="Master Controls">
+
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Stretch"
+                                Spacing="5">
+
+                        <WrapPanel Orientation="Horizontal"
+                                   ItemSpacing="5">
+                            <CheckBox Content="Has Fader?"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding HasFader}" />
+                            <CheckBox Content="Has Button Layer Up?"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding HasButtonUp}" />
+                            <CheckBox Content="Has Button Layer Up LED?"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding HasButtonUpLED}" />
+                            <CheckBox Content="Has Button Layer Down?"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding HasButtonDown}" />
+                            <CheckBox Content="Has Button Layer Down LED?"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding HasButtonDownLED}" />
+                        </WrapPanel>
+
+                        <ContentControl IsVisible="{Binding HasFader}"
+                                        Content="{Binding Fader}"
+                                        ContentTemplate="{StaticResource XFaderTemplate}" />
+
+                        <ContentControl IsVisible="{Binding HasButtonUp}"
+                                        Content="{Binding ButtonUp}"
+                                        ContentTemplate="{StaticResource XButtonTemplate}" />
+
+                        <ContentControl IsVisible="{Binding HasButtonUpLED}"
+                                        Content="{Binding ButtonUpLED}"
+                                        ContentTemplate="{StaticResource XButtonLEDTemplate}" />
+
+                        <ContentControl IsVisible="{Binding HasButtonDown}"
+                                        Content="{Binding ButtonDown}"
+                                        ContentTemplate="{StaticResource XButtonTemplate}" />
+
+                        <ContentControl IsVisible="{Binding HasButtonDownLED}"
+                                        Content="{Binding ButtonDownLED}"
+                                        ContentTemplate="{StaticResource XButtonLEDTemplate}" />
+
+                    </StackPanel>
+
+                </Expander>
+
+                <Expander Grid.Column="0" Grid.Row="3"
+                          Grid.ColumnSpan="2"
+                          HorizontalAlignment="Stretch"
+                          IsExpanded="False"
+                          Header="Init Commands">
+
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Stretch"
+                                Spacing="5">
+
+                        <WrapPanel Orientation="Horizontal"
+                                   ItemSpacing="5">
+                            <Button Content="Add OSC Command"
+                                    Command="{Binding AddInitOSCCommandCommand}" />
+                            <Button Content="Remove OSC Command"
+                                    Command="{Binding RemoveInitOSCCommandCommand}" />
+                        </WrapPanel>
+
+                        <ListBox ItemsSource="{Binding InitOSCCommands}"
+                                 SelectedItem="{Binding SelectedInitOSCCommand}"
+                                 ItemTemplate="{StaticResource XOSCCommandTemplate}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 SelectionMode="Single" />
+
+                        <WrapPanel Orientation="Horizontal"
+                                   ItemSpacing="5">
+                            <Button Content="Add MIDI Command"
+                                    Command="{Binding AddInitMIDICommandCommand}" />
+                            <Button Content="Remove MIDI Command"
+                                    Command="{Binding RemoveInitMIDICommandCommand}" />
+                        </WrapPanel>
+
+                        <ListBox ItemsSource="{Binding InitMIDICommands}"
+                                 SelectedItem="{Binding SelectedInitMIDICommand}"
+                                 ItemTemplate="{StaticResource XMIDICommandTemplate}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 SelectionMode="Single" />
+
+                        <WrapPanel Orientation="Horizontal"
+                                   ItemSpacing="5">
+                            <Button Content="Add Internal Command"
+                                    Command="{Binding AddInitInternalCommandCommand}" />
+                            <Button Content="Remove Internal Command"
+                                    Command="{Binding RemoveInitInternalCommandCommand}" />
+
+                        </WrapPanel>
+                        
+                        <ListBox ItemsSource="{Binding InitInternalCommands}"
+                                 SelectedItem="{Binding SelectedInitInternalCommand}"
+                                 ItemTemplate="{StaticResource XInternalCommandTemplate}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 SelectionMode="Single" />
+
+                    </StackPanel>
+
+                </Expander>
+
+                <Expander Grid.Column="0" Grid.Row="4"
+                          Grid.ColumnSpan="2"
+                          HorizontalAlignment="Stretch"
+                          IsExpanded="False"
+                          Header="Un-Init Commands">
+
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Stretch"
+                                Spacing="5">
+
+                        <WrapPanel Orientation="Horizontal"
+                                   ItemSpacing="5">
+                            <Button Content="Add OSC Command"
+                                    Command="{Binding AddUnInitOSCCommandCommand}" />
+                            <Button Content="Remove OSC Command"
+                                    Command="{Binding RemoveUnInitOSCCommandCommand}" />
+                        </WrapPanel>
+
+                        <ListBox ItemsSource="{Binding UnInitOscCommands}"
+                                 ItemTemplate="{StaticResource XOSCCommandTemplate}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 SelectionMode="Single" />
+
+                        <WrapPanel Orientation="Horizontal"
+                                   ItemSpacing="5">
+                            <Button Content="Add MIDI Command"
+                                    Command="{Binding AddUnInitMIDICommandCommand}" />
+                            <Button Content="Remove MIDI Command"
+                                    Command="{Binding RemoveUnInitMIDICommandCommand}" />
+                        </WrapPanel>
+
+                        <ListBox ItemsSource="{Binding UnInitMIDICommands}"
+                                 ItemTemplate="{StaticResource XMIDICommandTemplate}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 SelectionMode="Single" />
+
+                        <WrapPanel Orientation="Horizontal"
+                                   ItemSpacing="5">
+                            <Button Content="Add Internal Command"
+                                    Command="{Binding AddUnInitInternalCommandCommand}" />
+                            <Button Content="Remove Internal Command"
+                                    Command="{Binding RemoveUnInitInternalCommandCommand}" />
+
+                        </WrapPanel>
+
+                        <ListBox ItemsSource="{Binding UnInitInternalCommands}"
+                                 ItemTemplate="{StaticResource XInternalCommandTemplate}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 SelectionMode="Single" />
+
+
+                    </StackPanel>
+
+                </Expander>
+
+            </Grid>
+
+        </Expander>
+
+    </DataTemplate>
+
+</ResourceDictionary>

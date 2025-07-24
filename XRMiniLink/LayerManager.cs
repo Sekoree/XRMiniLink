@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using LinkUITest;
 using Melanchall.DryWetMidi.Multimedia;
 using OscCore;
 using XRMiniLink.Data;
@@ -14,8 +13,8 @@ public class LayerManager : ILayerManager
 
     public ConcurrentDictionary<string, OscMessageRaw> SavedOSCValues { get; set; } = new();
 
-    public ConcurrentDictionary<string, XLayer> Layers { get; set; } = new();
-    
+    public ConcurrentBag<XLayer> Layers { get; set; } = new();
+    public ConcurrentStack<XLayer> LayerHistory { get; set; } = new();
     public XLayer? CurrentLayer { get; set; }
     
     public LayerManager(SimpleOSC osc, InputDevice midiInput, OutputDevice midiOutput)
@@ -40,8 +39,8 @@ public class LayerManager : ILayerManager
         {
             // Disable current layer
             CurrentLayer.DisableLink();
+            LayerHistory.Push(CurrentLayer);
         }
-
         CurrentLayer = layer;
 
         if (CurrentLayer != null)

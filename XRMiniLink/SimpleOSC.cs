@@ -4,7 +4,7 @@ using OscCore;
 
 namespace XRMiniLink;
 
-public class SimpleOSC
+public class SimpleOSC : IDisposable
 {
     private readonly UdpClient _udpClient;
     private readonly IPEndPoint _remoteEndPoint;
@@ -46,7 +46,7 @@ public class SimpleOSC
                     Console.WriteLine($"Error sending OSC message: {e.Message}");
                     _connected = false; // Stop the thread on error
                 }
-                await Task.Delay(10000); // 10 seconds
+                await Task.Delay(5000); // 10 seconds
             }
         });
         Console.WriteLine("Connected to " + _remoteEndPoint);
@@ -62,7 +62,7 @@ public class SimpleOSC
                 var result = _udpClient.Receive(ref ep);
                 var message = new OscMessageRaw(result, ep, OscTimeTag.UtcNow);
                 MessageReceived?.Invoke(message);
-                Console.WriteLine($"Received: {message.Address}");
+                //Console.WriteLine($"Received: {message.Address}");
             }
             catch (Exception e)
             {
@@ -75,7 +75,7 @@ public class SimpleOSC
     public void StopReceiving()
     {
         _connected = false;
-        _readThread.Join();
+        //_readThread.Join();
         _udpClient.Close();
         Console.WriteLine("Stopped receiving OSC messages.");
     }
@@ -86,7 +86,7 @@ public class SimpleOSC
         try
         {
             _udpClient.Send(data, data.Length);
-            Console.WriteLine($"Sent OSC message: {message.Address}");
+            //Console.WriteLine($"Sent OSC message: {message.Address}");
         }
         catch (Exception e)
         {
@@ -120,5 +120,10 @@ public class SimpleOSC
         {
             Console.WriteLine($"Error sending trigger message: {e.Message}");
         }
+    }
+
+    public void Dispose()
+    {
+        _udpClient.Dispose();
     }
 }

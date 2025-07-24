@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="LinkLayerEditor/App.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Dialogs/AskStringDialog.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/LiveLinkView.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/MainWindow.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XBandTemplate.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XButtonLEDTemplate.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XButtonTemplate.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XCommandTemplates.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XEncoderTemplate.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XFaderTemplate.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XLEDRingTemplate.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkLayerEditor/Views/XLayerTemplate.axaml" value="LinkLayerEditor/LinkLayerEditor.csproj" />
+        <entry key="LinkUITest/Views/MainWindow.axaml" value="LinkUITest/LinkUITest.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

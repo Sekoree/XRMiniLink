@@ -1,0 +1,25 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="LinkLayerEditor.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             
+             <Application.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceInclude Source="Views/XCommandTemplates.axaml" />
+                            <ResourceInclude Source="Views/XLEDRingTemplate.axaml" />
+                            <ResourceInclude Source="Views/XEncoderTemplate.axaml" />
+                            <ResourceInclude Source="Views/XButtonTemplate.axaml" />
+                            <ResourceInclude Source="Views/XButtonLEDTemplate.axaml" />
+                            <ResourceInclude Source="Views/XFaderTemplate.axaml" />
+                            <ResourceInclude Source="Views/XBandTemplate.axaml" />
+                            <ResourceInclude Source="Views/XLayerTemplate.axaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+             </Application.Resources>
+  
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+</Application>

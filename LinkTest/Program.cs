@@ -65,8 +65,8 @@ class Program
         {
             Layers =
             {
-                [testLayer.Name] = testLayer,
-                [_testLayer2.Name] = _testLayer2
+                testLayer,
+                _testLayer2
             },
             CurrentLayer = testLayer
         };

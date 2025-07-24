@@ -1,0 +1,191 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:LinkLayerEditor.Models">
+    <!-- Add Resources Here -->
+    <DataTemplate x:Key="XOSCCommandTemplate"
+                  DataType="models:XOSCCommandModel">
+        <Expander Header="{Binding Command, StringFormat='OSC Command: {0}'}"
+                  HorizontalAlignment="Stretch"
+                  IsExpanded="False">
+
+            <Grid ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                <Label Grid.Column="0" Grid.Row="0"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="Command"
+                       Content="Command:" />
+                <TextBox Grid.Column="1" Grid.Row="0"
+                         Margin="2.5"
+                         x:Name="Command"
+                         Text="{Binding Command}" />
+
+                <Label Grid.Column="0" Grid.Row="1"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="OSCType"
+                       Content="OSC Type:" />
+                <ComboBox Grid.Column="1" Grid.Row="1"
+                          Margin="2.5"
+                          Width="250"
+                          x:Name="OSCType"
+                          ItemsSource="{Binding AvailableOscTypes}"
+                          SelectedItem="{Binding OscType}" />
+
+                <CheckBox Grid.Column="0" Grid.Row="2"
+                          Grid.ColumnSpan="2"
+                          VerticalContentAlignment="Center"
+                          Margin="2.5"
+                          IsChecked="{Binding IsToggle}"
+                          Content="Is Toggle" />
+
+                <CheckBox Grid.Column="0" Grid.Row="3"
+                          Grid.ColumnSpan="2"
+                          VerticalContentAlignment="Center"
+                          Margin="2.5"
+                          IsChecked="{Binding HasValue}"
+                          Content="Has Value?" />
+
+                <Label Grid.Column="0" Grid.Row="4"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       IsVisible="{Binding HasValue}"
+                       Target="OSCCommandValue"
+                       Content="Value:" />
+                <TextBox Grid.Column="1" Grid.Row="4"
+                         x:Name="OSCCommandValue"
+                         Margin="2.5"
+                         IsVisible="{Binding HasValue}"
+                         Text="{Binding Value}" />
+
+                <CheckBox Grid.Column="0" Grid.Row="5"
+                          Grid.ColumnSpan="2"
+                          VerticalContentAlignment="Center"
+                          Margin="2.5"
+                          Content="Has Min/Mix Values?"
+                          IsChecked="{Binding HasMinMax}" />
+
+                <Label Grid.Column="0" Grid.Row="6"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       IsVisible="{Binding HasMinMax}"
+                       Target="MinValue"
+                       Content="Min Value:" />
+                <NumericUpDown Grid.Column="1" Grid.Row="6"
+                               Margin="2.5"
+                               x:Name="MinValue"
+                               ParsingNumberStyle="Float"
+                               IsVisible="{Binding HasMinMax}"
+                               Value="{Binding Min}" />
+
+                <Label Grid.Column="0" Grid.Row="7"
+                       Margin="2.5"
+                       VerticalContentAlignment="Center"
+                       HorizontalAlignment="Left"
+                       IsVisible="{Binding HasMinMax}"
+                       Target="MaxValue"
+                       Content="Max Value:" />
+                <NumericUpDown Grid.Column="1" Grid.Row="7"
+                               Margin="2.5"
+                               x:Name="MaxValue"
+                               ParsingNumberStyle="Float"
+                               IsVisible="{Binding HasMinMax}"
+                               Value="{Binding Max}" />
+            </Grid>
+
+        </Expander>
+    </DataTemplate>
+    <DataTemplate x:Key="XMIDICommandTemplate"
+                  DataType="models:XMIDICommandModel">
+        <Expander Header="{Binding MidiNote, StringFormat='MIDI Command: Note {0}'}"
+                  HorizontalAlignment="Stretch"
+                  IsExpanded="False">
+
+            <Grid ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto, Auto">
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="MIDINote"
+                       Content="MIDI Note:" />
+                <ComboBox Grid.Column="1" Grid.Row="0"
+                          Margin="2.5"
+                          Width="250"
+                          x:Name="MIDINote"
+                          ItemsSource="{Binding AvailableMidiNotes}"
+                          SelectedItem="{Binding MidiNote}" />
+
+                <Label Grid.Column="0" Grid.Row="1"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="MIDICommandValue"
+                       Content="MIDI Value:" />
+                <NumericUpDown Grid.Column="1" Grid.Row="1"
+                               Margin="2.5"
+                               x:Name="MIDICommandValue"
+                               ParsingNumberStyle="Integer"
+                               Value="{Binding Value}" />
+
+                <Label Grid.Column="0" Grid.Row="2"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="MIDIType"
+                       Content="MIDI Type:" />
+                <ComboBox Grid.Column="1" Grid.Row="2"
+                          Margin="2.5"
+                          Width="250"
+                          x:Name="MIDIType"
+                          ItemsSource="{Binding AvailableMidiTypes}"
+                          SelectedItem="{Binding MidiType}" />
+
+            </Grid>
+        </Expander>
+
+    </DataTemplate>
+    <DataTemplate x:Key="XInternalCommandTemplate"
+                  DataType="models:XInternalCommandModel">
+
+        <Expander Header="{Binding Command, StringFormat='Internal Command: {0}'}"
+                  HorizontalAlignment="Stretch"
+                  IsExpanded="False">
+
+            <Grid ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto">
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="InternalCommand"
+                       Content="Internal Command:" />
+                <ComboBox Grid.Column="1" Grid.Row="0"
+                          Margin="2.5"
+                          Width="250"
+                          x:Name="InternalCommand"
+                          ItemsSource="{Binding AvailableCommands}"
+                          SelectedItem="{Binding Command}" />
+
+                <Label Grid.Column="0" Grid.Row="1"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="InternalCommandParameters"
+                       Content="Parameters:" />
+                <TextBox Grid.Column="1" Grid.Row="1"
+                         Margin="2.5"
+                         x:Name="InternalCommandParameters"
+                         Text="{Binding Parameters}" />
+
+            </Grid>
+        </Expander>
+
+    </DataTemplate>
+</ResourceDictionary>

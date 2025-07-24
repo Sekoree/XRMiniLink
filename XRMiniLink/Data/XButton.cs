@@ -1,4 +1,3 @@
-using LinkUITest;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
@@ -14,7 +13,7 @@ public class XButton : ILinkHandler
     private InputDevice? _midiInput;
     private OutputDevice? _midiOutput;
 
-    public string MidiNote { get; set; }
+    public int MIDINote { get; set; }
     public DataDirection Direction => DataDirection.Input;
     public List<XOSCCommand> OSCCommands { get; set; } = new();
     public List<XInternalCommand> InternalCommands { get; set; } = new();
@@ -38,40 +37,66 @@ public class XButton : ILinkHandler
     {
         if (e.Event is not NoteOnEvent noteOn || noteOn.Velocity <= 0) 
             return;
-        var midiNote = SevenBitNumber.Parse(MidiNote);
-        if (noteOn.NoteNumber != midiNote) 
+        if (noteOn.NoteNumber != MIDINote) 
+            return;
+        if (_layerManager == null)
             return;
         
         foreach (var command in InternalCommands)
         {
             if (command.Command == InternalCommand.SwitchLayer)
             {
-                Console.WriteLine("##### Switch Layer Command Received #####");
                 if (command.Parameters == null) 
                     continue;
                 
-                var layer = _layerManager?.Layers.GetValueOrDefault(command.Parameters);
-                if (layer == null) 
+                var layer = _layerManager?.Layers.FirstOrDefault(x => x.Name == command.Parameters);
+                if (layer == null)
+                {
+                    Console.WriteLine($"Could not find layer: {command.Parameters}");
                     continue;
+                }
                 
+                var currentLayer = _layerManager?.CurrentLayer;
+                if (currentLayer == null)
+                    continue;
+
                 _layerManager?.SwitchLayer(layer);
+            }
+            else if (command.Command == InternalCommand.GoBack)
+            {
+                XLayer? lastLayer = null;
+                var hasLastLayer = _layerManager?.LayerHistory.TryPop(out lastLayer);
+                if (hasLastLayer != true || lastLayer == null)
+                {
+                    Console.WriteLine($"Could not find layer: {command.Parameters}");
+                    continue;
+                }
+                
+                _layerManager?.SwitchLayer(lastLayer);
             }
         }
         
         
         foreach (var command in OSCCommands)
         {
-            if (command.IsToggle == true)
+            if (command.IsToggle)
             {
+                var commandAddress = command.Command;
                 //try get the current value from the layer manager
-                var currentValue = _layerManager?.SavedOSCValues.GetValueOrDefault(command.Command);
-                if (currentValue == null)
+                OscMessageRaw currentCommandValue = default;
+                if (_layerManager?.SavedOSCValues.TryGetValue(commandAddress, out currentCommandValue) != true)
                 {
-                    Console.WriteLine($"## OSC Command {command.Command} not cached, cant toggle ##");
+                    Console.WriteLine($"## OSC Command {commandAddress} not cached, cant toggle ##");
+                    continue;
+                }
+                
+                if (currentCommandValue.Count == 0)
+                {
+                    Console.WriteLine($"## OSC Command {commandAddress} has no value, cant toggle ##");
                     continue;
                 }
 
-                if (command.OSCType != currentValue.Value[0].Type)
+                if (command.OSCType != currentCommandValue[0].Type)
                 {
                     Console.WriteLine("## OSC Command type mismatch, cant toggle ##");
                     continue;
@@ -81,28 +106,45 @@ public class XButton : ILinkHandler
                 {
                     if (command.Min == null || command.Max == null)
                     {
-                        Console.WriteLine("## OSC Command Min/Max not set, cant toggle ##");
+                        //no value conversion, just send the command
+                        
                         continue;
                     }
                     
-                    var oldValueArg = currentValue.Value[0];
-                    var oldValue = currentValue.Value.ReadInt(ref oldValueArg);
+                    var oldValueArg = currentCommandValue[0];
+                    var oldValue = currentCommandValue.ReadInt(ref oldValueArg);
                     
                     var valueToWrite = oldValue == (int)command.Min ? (int)command.Max : (int)command.Min;
                     
-                    _osc?.SendOSCMessage(new OscMessage(command.Command, valueToWrite));
-                    _osc?.TriggerValue(new OscMessage(command.Command));
+                    _osc?.SendOSCMessage(new OscMessage(commandAddress, valueToWrite));
+                    _osc?.TriggerValue(new OscMessage(commandAddress));
+                }
+                else
+                {
+                    Console.WriteLine("## OSC Command type not supported for toggling ##");
                 }
             }
             else
             {
+                var commandAddress = command.Command;
                 if (command.Value != null)
                 {
                     if (command.OSCType == OscToken.Int)
                     {
                         var valueToWrite = int.Parse(command.Value);
-                        _osc?.SendOSCMessage(new OscMessage(command.Command, valueToWrite));
-                        _osc?.TriggerValue(new OscMessage(command.Command));
+                        _osc?.SendOSCMessage(new OscMessage(commandAddress, valueToWrite));
+                        _osc?.TriggerValue(new OscMessage(commandAddress));
+                    }
+                    else if (command.OSCType == OscToken.Float)
+                    {
+                        var valueToWrite = float.Parse(command.Value);
+                        _osc?.SendOSCMessage(new OscMessage(commandAddress, valueToWrite));
+                        _osc?.TriggerValue(new OscMessage(commandAddress));
+                    }
+                    else if (command.OSCType == OscToken.String)
+                    {
+                        _osc?.SendOSCMessage(new OscMessage(commandAddress, command.Value));
+                        _osc?.TriggerValue(new OscMessage(commandAddress));
                     }
                     else
                     {

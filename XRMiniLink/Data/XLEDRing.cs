@@ -1,4 +1,3 @@
-using LinkUITest;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
@@ -14,7 +13,7 @@ public class XLEDRing : ILinkHandler
     private InputDevice? _midiInput;
     private OutputDevice? _midiOutput;
     
-    public string MidiNote { get; set; }
+    public int MIDINote { get; set; }
     public DataDirection Direction => DataDirection.Output;
     /// <summary>
     /// Hardcoded for Fan (33-43) for now.
@@ -42,21 +41,25 @@ public class XLEDRing : ILinkHandler
 
     private void OscOnMessageReceived(OscMessageRaw msg)
     {
-        if (msg.Address == OSCCommand?.Command)
+        if (OSCCommand == null || _layerManager == null)
+            return;
+        
+        var commandAddress = OSCCommand.Command;
+        if (msg.Address == commandAddress)
         {
             var arg0 = msg[0];
             if (arg0.Type == OscToken.Float)
             {
                 if (OSCCommand == null || OSCCommand.Min == null || OSCCommand.Max == null)
                 {
-                    Console.WriteLine($"XLEDRing: Command {OSCCommand?.Command} is not properly configured with Min/Max values.");
+                    Console.WriteLine($"XLEDRing: Command {commandAddress} is not properly configured with Min/Max values.");
                     return;
                 }
                 var commandValRange = OSCCommand.Max.Value - OSCCommand.Min.Value;
                 var value = msg.ReadFloat(ref arg0);
                 if (value < OSCCommand.Min || value > OSCCommand.Max)
                 {
-                    Console.WriteLine($"XLEDRing: Value {value} out of range ({OSCCommand.Min}-{OSCCommand.Max}) for command {OSCCommand.Command}");
+                    Console.WriteLine($"XLEDRing: Value {value} out of range ({OSCCommand.Min}-{OSCCommand.Max}) for command {commandAddress}");
                     return;
                 }
                 //led ring values are basically 0-11, scale value to that range
@@ -65,8 +68,7 @@ public class XLEDRing : ILinkHandler
                     return;
                 // Send MIDI Note On for the LED ring
                 var midiVal = ValueMin + scaledValue; // 33 is the first LED note
-                var controlNum = SevenBitNumber.Parse(this.MidiNote);
-                _midiOutput.SendEvent(new ControlChangeEvent(controlNum, (SevenBitNumber)midiVal));
+                _midiOutput.SendEvent(new ControlChangeEvent((SevenBitNumber)MIDINote, (SevenBitNumber)midiVal));
             }
         }
     }

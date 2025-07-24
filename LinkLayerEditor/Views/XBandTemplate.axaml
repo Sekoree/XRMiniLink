@@ -1,0 +1,82 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:LinkLayerEditor.Models">
+
+    <!-- Add Resources Here -->
+
+    <DataTemplate x:Key="XBandTemplate"
+                  DataType="models:XBandModel">
+
+        <Expander Header="{Binding Index, StringFormat='Band: {0}'}"
+                  HorizontalAlignment="Stretch"
+                  IsExpanded="False">
+            
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+
+                <WrapPanel Grid.Row="0"
+                           Orientation="Horizontal"
+                           ItemSpacing="5">
+                    <CheckBox Content="Has LED Ring?"
+                              VerticalContentAlignment="Center"
+                              IsChecked="{Binding HasLEDRing}" />
+                    <CheckBox Content="Has Encoder?"
+                              VerticalContentAlignment="Center"
+                              IsChecked="{Binding HasEncoder}" />
+                    <CheckBox Content="Has Encoder Button?"
+                              VerticalContentAlignment="Center"
+                              IsChecked="{Binding HasEncoderButton}" />
+                    <CheckBox Content="Has Top Button?"
+                              VerticalContentAlignment="Center"
+                              IsChecked="{Binding HasTopButton}" />
+                    <CheckBox Content="Has Top Button LED?"
+                              VerticalContentAlignment="Center"
+                              IsChecked="{Binding HasTopButtonLED}" />
+                    <CheckBox Content="Has Bottom Button?"
+                              VerticalContentAlignment="Center"
+                              IsChecked="{Binding HasBottomButton}" />
+                    <CheckBox Content="Has Bottom Button LED?"
+                              VerticalContentAlignment="Center"
+                              IsChecked="{Binding HasBottomButtonLED}" />
+                </WrapPanel>
+
+                <ContentControl Grid.Row="1"
+                                IsVisible="{Binding HasLEDRing}"
+                                Content="{Binding LedRing}"
+                                ContentTemplate="{StaticResource XLEDRingTemplate}" />
+
+                <ContentControl Grid.Row="2"
+                                IsVisible="{Binding HasEncoder}"
+                                Content="{Binding Encoder}"
+                                ContentTemplate="{StaticResource XEncoderTemplate}" />
+
+                <ContentControl Grid.Row="3"
+                                IsVisible="{Binding HasEncoderButton}"
+                                Content="{Binding EncoderButton}"
+                                ContentTemplate="{StaticResource XButtonTemplate}" />
+
+                <ContentControl Grid.Row="4"
+                                IsVisible="{Binding HasTopButton}"
+                                Content="{Binding TopButton}"
+                                ContentTemplate="{StaticResource XButtonTemplate}" />
+
+                <ContentControl Grid.Row="5"
+                                IsVisible="{Binding HasTopButtonLED}"
+                                Content="{Binding TopButtonLED}"
+                                ContentTemplate="{StaticResource XButtonLEDTemplate}" />
+
+                <ContentControl Grid.Row="6"
+                                IsVisible="{Binding HasBottomButton}"
+                                Content="{Binding BottomButton}"
+                                ContentTemplate="{StaticResource XButtonTemplate}" />
+
+                <ContentControl Grid.Row="7"
+                                IsVisible="{Binding HasBottomButtonLED}"
+                                Content="{Binding BottomButtonLED}"
+                                ContentTemplate="{StaticResource XButtonLEDTemplate}" />
+
+            </Grid>
+        </Expander>
+
+    </DataTemplate>
+
+</ResourceDictionary>

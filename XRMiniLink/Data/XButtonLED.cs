@@ -1,4 +1,3 @@
-using LinkUITest;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
@@ -14,7 +13,7 @@ public class XButtonLED : ILinkHandler
     private InputDevice? _midiInput;
     private OutputDevice? _midiOutput;
 
-    public string MidiNote { get; set; }
+    public int MIDINote { get; set; }
     public DataDirection Direction => DataDirection.Output;
 
     /// <summary>
@@ -41,7 +40,11 @@ public class XButtonLED : ILinkHandler
 
     private void OscOnMessageReceived(OscMessageRaw msg)
     {
-        if (OSCCommand == null || msg.Address != OSCCommand.Command)
+        if (OSCCommand == null || _layerManager == null)
+            return;
+        
+        var commandAddress = OSCCommand.Command;
+        if (msg.Address != commandAddress)
             return;
 
         if (msg[0].Type != OSCCommand.OSCType)
@@ -57,13 +60,12 @@ public class XButtonLED : ILinkHandler
             
             if (OSCCommand.Min == null || OSCCommand.Max == null)
             {
-                Console.WriteLine($"## OSC Command {OSCCommand.Command} has no Min/Max defined, cant write value ##");
+                Console.WriteLine($"## OSC Command {commandAddress} has no Min/Max defined, cant write value ##");
                 return;
             }
             
             var valueToWrite = value == 0 ? (int)OSCCommand.Min : (int)OSCCommand.Max;
-            var midiNote = SevenBitNumber.Parse(MidiNote);
-            _midiOutput?.SendEvent(new NoteOnEvent(midiNote, (SevenBitNumber)valueToWrite));
+            _midiOutput?.SendEvent(new NoteOnEvent((SevenBitNumber)MIDINote, (SevenBitNumber)valueToWrite));
         }
     }
 

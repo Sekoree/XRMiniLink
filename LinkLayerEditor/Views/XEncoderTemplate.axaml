@@ -1,0 +1,83 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:LinkLayerEditor.Models">
+
+    <!-- Add Resources Here -->
+
+    <DataTemplate x:Key="XEncoderTemplate"
+                  DataType="models:XEncoderModel">
+
+        <Expander Header="{Binding MidiNote, StringFormat='Encoder: Note {0}'}"
+                  HorizontalAlignment="Stretch"
+                  IsExpanded="False">
+
+            <Grid ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       Margin="2.5"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Target="XEncoderMIDINote"
+                       Content="MIDI Note:" />
+                <ComboBox Grid.Column="1" Grid.Row="0"
+                          Margin="2.5"
+                          Width="250"
+                          x:Name="XEncoderMIDINote"
+                          ItemsSource="{Binding AvailableMidiNotes}"
+                          SelectedItem="{Binding MidiNote}" />
+
+                <WrapPanel Grid.Column="0" Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Margin="2.5"
+                           Orientation="Horizontal"
+                           ItemSpacing="5">
+                    <Button Content="Add OSC Command"
+                            Command="{Binding AddOSCCommandCommand}" />
+                    <Button Content="Remove OSC Command"
+                            Command="{Binding RemoveOSCCommandCommand}" />
+                </WrapPanel>
+
+                <ListBox Grid.Column="0" Grid.Row="2"
+                         Grid.ColumnSpan="2"
+                         Margin="2.5"
+                         ItemsSource="{Binding OscCommands}"
+                         SelectedItem="{Binding SelectedOSCCommand}"
+                         ItemTemplate="{StaticResource XOSCCommandTemplate}" />
+
+                <WrapPanel Grid.Column="0" Grid.Row="3"
+                           Grid.ColumnSpan="2"
+                           Margin="2.5"
+                           Orientation="Horizontal"
+                           ItemSpacing="5">
+                    <Button Content="Add Internal Command"
+                            Command="{Binding AddInternalCommandCommand}" />
+                    <Button Content="Remove Internal Command"
+                            Command="{Binding RemoveInternalCommandCommand}" />
+                </WrapPanel>
+
+                <ListBox Grid.Column="0" Grid.Row="4"
+                         Grid.ColumnSpan="2"
+                         Margin="2.5"
+                         ItemsSource="{Binding InternalCommands}"
+                         SelectedItem="{Binding SelectedInternalCommand}"
+                         ItemTemplate="{StaticResource XInternalCommandTemplate}" />
+
+                <WrapPanel Grid.Column="0" Grid.Row="5"
+                           Grid.ColumnSpan="2"
+                           Margin="2.5"
+                           Orientation="Horizontal"
+                           ItemSpacing="5">
+                    <Button Content="Add MIDI Command"
+                            Command="{Binding AddMIDICommandCommand}" />
+                    <Button Content="Remove MIDI Command"
+                            Command="{Binding RemoveMIDICommandCommand}" />
+                </WrapPanel>
+
+            </Grid>
+
+        </Expander>
+
+    </DataTemplate>
+
+</ResourceDictionary>

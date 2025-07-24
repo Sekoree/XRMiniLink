@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LinkLayerEditor.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LinkLayerEditor.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="LinkLayerEditor">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="XLayerTemplate.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto, *">
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Load Layers"
+                          Command="{Binding LoadLayersCommand}"
+                          CommandParameter="{Binding $parent[Window]}" />
+                <MenuItem Header="Save Layers"
+                          Command="{Binding SaveLayersCommand}"
+                          CommandParameter="{Binding $parent[Window]}" />
+            </MenuItem>
+            <MenuItem Header="Layers">
+                <MenuItem Header="Add Layer"
+                          Command="{Binding AddLayerCommand}" />
+                <MenuItem Header="Remove Layer"
+                          Command="{Binding RemoveLayerCommand}" />
+                <MenuItem Header="Duplicate Layers"
+                          Command="{Binding DuplicateLayerCommand}" />
+            </MenuItem>
+            <MenuItem Header="LiveLink"
+                      Command="{Binding OpenLiveLinkViewCommand}" />
+        </Menu>
+
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Layers}"
+                          ItemTemplate="{StaticResource XLayerTemplate}" />
+        </ScrollViewer>
+    </Grid>
+
+</Window>

@@ -1,0 +1,144 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:LinkLayerEditor.ViewModels"
+        xmlns:data="clr-namespace:XRMiniLink.Data;assembly=XRMiniLink"
+        xmlns:multimedia="clr-namespace:Melanchall.DryWetMidi.Multimedia;assembly=Melanchall.DryWetMidi"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LinkLayerEditor.Views.LiveLinkView"
+        Title="LiveLinkView"
+        x:DataType="vm:LiveLinkViewModel">
+
+    <Grid ColumnDefinitions="*, *">
+
+        <ScrollViewer Grid.Column="0"
+                      Margin="10">
+            <StackPanel Orientation="Vertical"
+                        Spacing="5">
+
+                <Label Content="Layers:"
+                       VerticalContentAlignment="Center" />
+                <ComboBox ItemsSource="{Binding Layers}"
+                          SelectedItem="{Binding CurrentLayer}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="data:XLayer">
+                            <Label VerticalContentAlignment="Center"
+                                   Content="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Separator HorizontalAlignment="Center"
+                           Height="2"
+                           Width="50" />
+
+                <Label Content="Remote Address:"
+                       VerticalContentAlignment="Center" />
+                <TextBox Text="{Binding RemoteAddress}"
+                         HorizontalAlignment="Left"
+                         Width="150" />
+
+                <Separator HorizontalAlignment="Center"
+                           Height="2"
+                           Width="50" />
+
+                <Label Content="Local Port:"
+                       VerticalContentAlignment="Center" />
+                <NumericUpDown HorizontalAlignment="Left"
+                               Value="{Binding LocalPort}"
+                               ParsingNumberStyle="Integer"
+                               Width="150" />
+
+                <Separator HorizontalAlignment="Center"
+                           Height="2"
+                           Width="50" />
+
+                <Label Content="Input MIDI Device:"
+                       VerticalContentAlignment="Center" />
+                <ComboBox ItemsSource="{Binding MidiInputs}"
+                          SelectedItem="{Binding SelectedMidiInput}"
+                          Width="150">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="multimedia:InputDevice">
+                            <Label VerticalContentAlignment="Center"
+                                   Content="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Content="Refresh MIDI Devices"
+                        Command="{Binding RefreshMidiDevicesCommand}"/>
+
+                <Separator HorizontalAlignment="Center"
+                           Height="2"
+                           Width="50" />
+
+                <Label Content="Output MIDI Device:"
+                       VerticalContentAlignment="Center" />
+                <ComboBox ItemsSource="{Binding MidiOutputs}"
+                          SelectedItem="{Binding SelectedMidiOutput}"
+                          Width="150">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="multimedia:OutputDevice">
+                            <Label VerticalContentAlignment="Center"
+                                   Content="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Content="Refresh MIDI Devices"
+                        Command="{Binding RefreshMidiDevicesCommand}"/>
+
+                <Separator HorizontalAlignment="Center"
+                           Height="2"
+                           Width="50" />
+
+                <WrapPanel Orientation="Horizontal"
+                           ItemSpacing="5">
+                    <Button Content="Start OSC Connection"
+                            Command="{Binding StartOSCConnectionCommand }"
+                            HorizontalAlignment="Center" />
+                    <Button Content="Stop OSC Connection"
+                            Command="{Binding StopOSCConnectionCommand }"
+                            HorizontalAlignment="Center" />
+                    <Button Content="Start Layer Live"
+                            Command="{Binding StartLayerLiveCommand }"
+                            HorizontalAlignment="Center" />
+                    <Button Content="Stop Layer Live"
+                            Command="{Binding StopLayerLiveCommand }"
+                            HorizontalAlignment="Center" />
+                </WrapPanel>
+
+                <Separator HorizontalAlignment="Center"
+                           Height="2"
+                           Width="50" />
+
+                <Label Content="Status:"
+                       VerticalContentAlignment="Center" />
+                <WrapPanel Orientation="Horizontal"
+                           ItemSpacing="5">
+                    <CheckBox VerticalContentAlignment="Center"
+                              Content="Is OSC Connected?"
+                              IsChecked="{Binding IsConnected}"
+                              IsEnabled="False" />
+                    <CheckBox VerticalContentAlignment="Center"
+                              Content="Is Layer Live?"
+                              IsChecked="{Binding IsLayerLive}"
+                              IsEnabled="False" />
+                </WrapPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <TextBlock Grid.Column="1"
+                   Margin="10"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="{Binding CurrentLayer.Name}" />
+
+    </Grid>
+
+</Window>
